@@ -78,6 +78,9 @@ public class FlipAnimation extends Animation {
 		if (interpolatedTime >= 0.5f) {
 			degrees -= 180.f;
 			toView.bringToFront();
+			//these two lines are necessary to make it work below kitkat
+			((View)toView.getParent()).requestLayout();
+			((View)toView.getParent()).invalidate();
 
 		}
 		if (interpolatedTime >= 0.95f) {
