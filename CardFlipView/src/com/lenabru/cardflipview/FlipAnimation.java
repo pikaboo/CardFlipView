@@ -64,10 +64,8 @@ public class FlipAnimation extends Animation {
 		final double radians = Math.PI * interpolatedTime;
 		float degrees = (float) (180.0 * radians / Math.PI);
 
-		// Once we reach the midpoint in the animation, we need to hide the
-		// source view and show the destination view. We also need to change
-		// the angle by 180 degrees so that the destination does not come in
-		// flipped around
+		//Scale the view down a bit once the animation begins, so that it fits 
+		//inside the frame it was given
 		if (interpolatedTime <= 0.05f) {
 			fromView.setScaleX(1 - interpolatedTime);
 			fromView.setScaleY(1 - interpolatedTime);
@@ -75,6 +73,10 @@ public class FlipAnimation extends Animation {
 			toView.setScaleY(1 - interpolatedTime);
 		}
 
+		// Once we reach the midpoint in the animation, we need to hide the
+		// source view and show the destination view. We also need to change
+		// the angle by 180 degrees so that the destination does not come in
+		// flipped around
 		if (interpolatedTime >= 0.5f) {
 			degrees -= 180.f;
 			toView.bringToFront();
@@ -83,6 +85,8 @@ public class FlipAnimation extends Animation {
 			((View)toView.getParent()).invalidate();
 
 		}
+		//return the view back to its original size
+		//assuming scale was 1
 		if (interpolatedTime >= 0.95f) {
 			fromView.setScaleX(interpolatedTime);
 			fromView.setScaleY(interpolatedTime);
